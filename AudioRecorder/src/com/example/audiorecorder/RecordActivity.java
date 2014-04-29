@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -26,9 +28,12 @@ public class RecordActivity extends Activity {
 	private TextView textView1;
 	private Button start, stop, play, send;
 	Long availableSpace;
+	Logger logger = Logger.getRootLogger();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.record_activity);
 		start = (Button) findViewById(R.id.buttonRecord);
@@ -41,6 +46,15 @@ public class RecordActivity extends Activity {
 		play.setEnabled(false);
 		send.setEnabled(false);
 
+		defineAvailableSpace();
+		
+
+	}
+
+	private void defineAvailableSpace() {
+
+		logger.info("Define the availble space for dummyUsrName.");
+		
 		availableSpace = getFreeInternalStorageSize();
 
 		Long size = availableSpace;
@@ -62,10 +76,13 @@ public class RecordActivity extends Activity {
 		textView1.setText("Available Space: " + size + suffix);
 
 		outputFile = new File(this.getFilesDir(), "myrecording.mp4");
-
+		
+		logger.info("Set the output file to: " + outputFile.getName() + " for dummyUsrName");
 	}
 
 	public void start(View view){
+		logger.info("Prepare to record for dummyUsrName");
+		
 		try {
 			myAudioRecorder = new MediaRecorder();
 			myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -75,6 +92,8 @@ public class RecordActivity extends Activity {
 			myAudioRecorder.setAudioSamplingRate(44100);
 			myAudioRecorder.setOutputFile(outputFile.getAbsolutePath());
 			myAudioRecorder.prepare();
+			
+			logger.info("dummyUsrName Star recording");
 			myAudioRecorder.start();
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
@@ -102,7 +121,21 @@ public class RecordActivity extends Activity {
 	}
 
 	public void stop(View view){
+		int dummyLength = 10000;
+		logger.info("dummyUsrName stopped recording at length " + dummyLength);
+		
 		myAudioRecorder.stop();
+		
+		
+		encryptingRecordedAudioOnMemory();
+		
+		saveEncryptedDataToFile();
+	}
+
+	private void saveEncryptedDataToFile() {
+		
+		logger.info("Start saving encrypted data to file for dummyUsrName");
+		
 		myAudioRecorder.release();
 		myAudioRecorder  = null;
 		start.setEnabled(true);
@@ -132,6 +165,17 @@ public class RecordActivity extends Activity {
 		}
 
 		textView1.setText("Available Space: " + size + suffix);
+		
+		logger.info("Saving encrypted data to file for dummyUsrName has done successfully");
+	}
+
+	private void encryptingRecordedAudioOnMemory() {
+		
+		logger.info("Start encrypting data that is on the memory, for dummyUsrName.");
+		
+		// encrypting code goes here
+		
+		logger.info("Encrypted finished for dummyUsrName");
 	}
 
 	@Override
@@ -150,12 +194,16 @@ public class RecordActivity extends Activity {
 		m.setDataSource(fileInputStream.getFD());
 		m.prepare();
 		m.start();
+		
+		logger.info("dummyUsrName start playing the message");
 		//		Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_LONG).show();
 
 	}
 
 	public void send(View view)
 	{
+		logger.info("Showing contact to dummyUsrName");
+		
 		final CharSequence users[] = new CharSequence[] {"Alice", "Bob", "Christine", "Dennis"};
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -163,7 +211,7 @@ public class RecordActivity extends Activity {
 		builder.setItems(users, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int user) {
-
+				logger.info("dummyUsrName chose " + users[user]);
 				selection(users[user]);
 
 			}
@@ -173,6 +221,10 @@ public class RecordActivity extends Activity {
 
 	public void selection(final CharSequence name)
 	{
+		signAndAttachedHashFunction();
+		
+		logger.info("Suggesting dummyUsrName to choose Bluetooth.");
+		
 		final CharSequence medium[] = new CharSequence[] {"Wi-Fi", "4G", "Bluetooth", "NFC"};
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -183,9 +235,33 @@ public class RecordActivity extends Activity {
 			public void onClick(DialogInterface dialog, int mediumPosition) {
 				Toast.makeText(getApplicationContext(), "You have selected to transfer to " + name.toString() + " using " + medium[mediumPosition] + " as a transfer medium.", Toast.LENGTH_LONG).show();
 
+				logger.info("dummyUsrName has chosen " +  medium[mediumPosition] + " as a medium to send recorded message.");
 			}
 		});
+		
+		
 		builder.show();
+		
+		connectingAndSending();
+	}
+
+	private void connectingAndSending() {
+		logger.info("Start sending message of dummyUsrName to dummyUsrName2");
+		
+		// connecting code goes here
+		
+	}
+
+	private void signAndAttachedHashFunction() {
+		logger.info("Start signing hash function for dummyUsrName");
+		
+		// signing hash function code goes here
+		
+		logger.info("Attaching hash function to message for dummyUsrName");
+		
+		// attaching hashfunction code goes here
+		
+		logger.info("Signing hash function done successfully for dummyUsrName");
 	}
 
 	public Long getFreeInternalStorageSize()
