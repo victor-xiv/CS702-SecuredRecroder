@@ -9,9 +9,10 @@ import org.apache.log4j.PatternLayout;
 /**
  * Call {@link #configure()}} from your application's activity.
  */
-public class ConfigureLog4J {
+public class CS702Logger {
+	
+	
     public static void configure(String filename) {
-
 		// set appender (our customized appender)
 		FileAppender temp = new FileAppender();
 		temp.setName("Root");
@@ -30,4 +31,10 @@ public class ConfigureLog4J {
 		Logger.getRootLogger().addAppender(temp);
 		
     }
+    
+    public static void secureLog(String message){
+    	Logger logger = Logger.getRootLogger();
+    	logger.log(SecurityLevel.SECURITY, message);
+    }
+    
 }

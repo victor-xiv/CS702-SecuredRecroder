@@ -18,12 +18,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginActivity extends ActionBarActivity {
-	Logger logger = Logger.getRootLogger();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		ConfigureLog4J.configure(this.getFilesDir() + "activity.log");
-		logger = Logger.getRootLogger();
+		CS702Logger.configure(this.getFilesDir() + "activity.log");
 		
 		super.onCreate(savedInstanceState);
 		
@@ -128,7 +126,7 @@ public class LoginActivity extends ActionBarActivity {
 
 	private void defineAccessRightsTo(String dummyUsrName) {
 		
-		logger.info("define this " + dummyUsrName + "'s access rights to file system and recording hardwares.");
+		CS702Logger.secureLog("define this " + dummyUsrName + "'s access rights to file system and recording hardwares.");
 		
 		// code to define access rights to this user goes here
 		
@@ -136,39 +134,39 @@ public class LoginActivity extends ActionBarActivity {
 
 	private boolean authenticateUser(String dummyUsrName, String dummyPswd) {
 
-		logger.info(dummyUsrName +" trying to authenticate");
+		CS702Logger.secureLog(dummyUsrName +" trying to authenticate");
 		
 		// autheication code goes here
 		
-		logger.info("Checking passcode for " +dummyUsrName);
+		CS702Logger.secureLog("Checking passcode for " +dummyUsrName);
 		
-		logger.info(dummyUsrName +" has typed passcode correctly.");
+		CS702Logger.secureLog(dummyUsrName +" has typed passcode correctly.");
 		
-		logger.info(dummyUsrName +" has authenticated successfully");
+		CS702Logger.secureLog(dummyUsrName +" has authenticated successfully");
 		
 		return true;
 	}
 
 	private void registerAccount(String usr, String pwd) {
-		logger.info("Registring user account for " + usr);
+		CS702Logger.secureLog("Registring user account for " + usr);
 
 		encryptAndStoreUsernamePasswordForNewAccount(usr, pwd);
 		
-		logger.info("New account for " + usr + " has been done successfully.");
+		CS702Logger.secureLog("New account for " + usr + " has been done successfully.");
 		// register code goes here
 	}
 
 	private void encryptAndStoreUsernamePasswordForNewAccount(String usr, String pwd) { 
-		logger.info("Encrypting username and password for " + usr);
+		CS702Logger.secureLog("Encrypting username and password for " + usr);
 		
 		// encrypt uasername and password code goes here
 
-		logger.info("Encrypting username and password was done successfully for " + usr);
+		CS702Logger.secureLog("Encrypting username and password was done successfully for " + usr);
 		
-		logger.info("Saving encrypted username and password into secured database for " + usr);
+		CS702Logger.secureLog("Saving encrypted username and password into secured database for " + usr);
 		// store encrypted username and password into a secure encrypted database code goes here
 		
-		logger.info("Storing encrypted username and password for " + usr + " was done successfully");
+		CS702Logger.secureLog("Storing encrypted username and password for " + usr + " was done successfully");
 	}
 	
 }
